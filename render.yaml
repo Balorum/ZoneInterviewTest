@@ -1,12 +1,20 @@
 services:
   - type: web
-    name: fastapi-service
+    name: fastapi-server
     runtime: python
     buildCommand: ""
-    startCommand: bash start.sh
+    startCommand: uvicorn server.api:app --host 0.0.0.0 --port 10000
+    envVars:
+      - key: GOOGLE_API_KEY
+        sync: false
+
+  - type: worker
+    name: telegram-bot
+    runtime: python
+    buildCommand: ""
+    startCommand: python3 bot/main.py
     envVars:
       - key: BOT_TOKEN
         sync: false
-      - key: GOOGLE_API_KEY
+      - key: SERVER_URL
         sync: false
-    autoDeploy: true
