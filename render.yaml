@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: fastapi-service
+    runtime: python
+    buildCommand: ""
+    startCommand: bash start.sh
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: GOOGLE_API_KEY
+        sync: false
+    autoDeploy: true
