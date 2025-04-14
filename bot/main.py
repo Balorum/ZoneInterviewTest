@@ -27,7 +27,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_text = update.message.text
-    response = requests.post("{SERVER_URL}/ask", json={"query": user_text})
+    response = requests.post(f"{SERVER_URL}/ask", json={"query": user_text})
     answer = response.json().get("answer", "Виникла помилка")
     zapier_dict = {
         "query": user_text,
@@ -38,7 +38,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "last_name": update.message.from_user.last_name,
         "timestamp": update.message.date.isoformat()
     }
-    requests.post("{SERVER_URL}/webhook", json=zapier_dict)
+    requests.post(f"{SERVER_URL}/webhook", json=zapier_dict)
     await update.message.reply_text(answer)
 
 
